@@ -1,0 +1,16 @@
+# Data files (too large)
+data/ecg_signals/
+data/*.h5
+
+# Google auth tokens
+.secrets/
+~/.cache/gargle/
+*.json
+
+# R session
+.Rhistory
+.RData
+.Rproj.user/
+
+# Model files (large — optional)
+outputs/model/*.xgb
