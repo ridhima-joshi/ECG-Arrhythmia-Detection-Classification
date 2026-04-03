@@ -1,0 +1,4 @@
+"model","accuracy","f1_score","notes"
+"RF Stage 1 — Normal vs Abnormal",0.7071,0.5935,"Binary classification"
+"RF Stage 2 — Arrhythmia Type",0.4636,NA,"Multi-class on Abnormal samples only"
+"Full Pipeline — End to End",0.5984,NA,"Stage 1 → Stage 2 combined"

@@ -14,3 +14,6 @@ data/*.h5
 
 # Model files (large — optional)
 outputs/model/*.xgb
+
+.DS_Store
+FETCH_HEAD
