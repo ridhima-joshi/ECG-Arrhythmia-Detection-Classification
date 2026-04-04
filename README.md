@@ -1,95 +1,126 @@
-# 🫀 Multi-level ECG Analysis: Detection and Multi-class Classification of Arrhythmia
+🫀 Multi-level ECG Analysis: Detection and Multi-class Classification of Arrhythmia
+📌 Project Overview
 
-## 📌 Project Overview
+Electrocardiogram (ECG) interpretation is a complex clinical task requiring specialized cardiological expertise. This project presents a machine learning–based multi-level ECG analysis pipeline for automated detection and classification of cardiac arrhythmias using standardized diagnostic ECG labels.
 
-Electrocardiogram (ECG) interpretation is a complex and specialized task that requires expert cardiological knowledge. This project presents a **machine learning–based, multi-level ECG analysis pipeline** that assists in the automated detection and classification of cardiac arrhythmias.
+The system is designed as a two-stage diagnostic framework:
 
-The system is designed as a **two-stage diagnostic framework**:
+Detection Stage – Classifies ECG signals as Normal or Abnormal
+Classification Stage – Categorizes abnormal ECGs into clinically meaningful diagnostic groups
 
-1. **Detection Stage** – Screens ECG records to distinguish between **Normal** and **Abnormal** heart rhythms.
-2. **Classification Stage** – Further classifies abnormal ECGs into **specific arrhythmia categories**.
+The goal is to support cardiologists by enabling faster screening and improving interpretability through data-driven insights and visualization.
 
-The primary goal is to support cardiologists by reducing diagnostic workload and enabling faster screening in emergency or remote healthcare settings.
+🎯 Objectives
+Detect the presence of cardiac arrhythmia from ECG data
+Classify ECG signals using standardized diagnostic labels
+Identify influential ECG-derived diagnostic features
+Build an interpretable and clinically meaningful ML pipeline
+Visualize prediction insights using an interactive Power BI dashboard
+📊 Dataset Information
+Source: PTB-XL ECG Dataset
+Provider: Springer Nature Figshare Repository
+Dataset Link:
+https://springernature.figshare.com/collections/A_large-scale_multi-label_12-lead_electrocardiogram_database_with_standardized_diagnostic_statements/5779802/1
+Dataset Description
 
----
+The dataset contains 12-lead ECG recordings with standardized cardiologist-verified diagnostic annotations.
 
-## 🎯 Objectives
+Key characteristics:
 
-* Detect the presence of cardiac arrhythmia from ECG data
-* Classify abnormal ECG signals into one of **15 arrhythmia types**
-* Identify the most influential ECG leads and signal features
-* Build an interpretable and clinically meaningful ML pipeline
+Multi-label ECG classification dataset
+Includes demographic attributes (Age, Sex)
+Contains diagnostic superclass labels (AHA grouped categories)
+Includes binary abnormality indicators
+Provides clinically structured rhythm annotations
+Suitable for arrhythmia detection pipelines
+🧠 Methodology
+🔹 Stage 1: Arrhythmia Detection (Binary Classification)
 
----
+Task: Detect whether ECG signals are Normal or Abnormal
 
-## 📊 Dataset Information
+Purpose:
 
-* **Source:** UCI Machine Learning Repository – Arrhythmia Dataset
-* **Instances:** 452 patient records
-* **Features:** 279 attributes
+Enable rapid screening
+Identify potentially risky ECG cases
+Reduce cardiologist workload
 
-  * Demographic features (age, sex, height, weight)
-  * ECG temporal intervals (PR, QRS, QT, T)
-  * Morphological and amplitude features across 12 ECG leads (DI, DII, DIII, AVR, AVL, AVF, V1–V6)
-* **Target Classes:** 16
+Class mapping:
 
-  * Class 1: Normal
-  * Classes 2–15: Specific arrhythmias
-  * Class 16: Unclassified arrhythmia
-* **Missing Values:** Represented using `?`
-* **Final Format:** Cleaned multivariate CSV (schema reconstructed from `.names` file)
+Normal → No abnormality detected
+Abnormal → Any diagnostic abnormal ECG pattern
 
----
+Models used:
 
-## 🧠 Methodology
+Random Forest
+Gradient Boosting / XGBoost
+🔹 Stage 2: Diagnostic Classification (Multi-class)
 
-### 🔹 Stage 1: Arrhythmia Detection (Binary Classification)
+Task: Identify ECG diagnostic superclass labels
 
-* **Task:** Normal vs Abnormal ECG
-* **Purpose:** Rapid screening to flag potentially risky cases
-* **Classes:**
+Classes derived from standardized PTB-XL annotations such as:
 
-  * Normal → Class 1
-  * Abnormal → Classes 2–16
+Myocardial Infarction
+ST/T Changes
+Conduction Disturbance
+Hypertrophy
+Normal ECG patterns
 
-### 🔹 Stage 2: Arrhythmia Classification (Multi-class)
+Models used:
 
-* **Task:** Identify the specific arrhythmia type
-* **Classes:** 15 medical arrhythmia categories
-* **Models Used:**
+Random Forest
+XGBoost
+🔹 Diagnostic & Interpretability Analysis
 
-  * Random Forest
-  * XGBoost / Gradient Boosting
+To improve interpretability:
 
-### 🔹 Diagnostic & Interpretability Analysis
+Feature importance analysis performed
+Diagnostic superclass contribution evaluated
+Demographic feature influence analyzed
+Binary prediction correctness examined
 
-* Feature importance analysis
-* ECG lead–wise contribution study (V1–V6)
-* Identification of critical ECG intervals and morphology features
+These steps help explain prediction behavior in clinically meaningful terms.
 
----
+📊 Power BI Dashboard
 
-## 🛠️ Tech Stack
+An interactive Power BI dashboard was developed to visualize model performance and classification insights.
 
-* **Programming Language:** Python
-* **Libraries:**
+Key Visualizations Included
+Model Accuracy KPI card
+Confusion Matrix (R visual)
+Feature Importance plot (R visual)
+Prediction vs Actual comparison chart
+Class Distribution visualization
+Interactive filters for Age and Sex
+Total Records summary card
 
-  * pandas, numpy
-  * scikit-learn
-  * XGBoost
-  * matplotlib, seaborn
-* **Platform:** Google Colab / Jupyter Notebook
+Dashboard file:
 
----
+powerbi/ecg_dashboard.pbix
 
-## 📁 Repository Structure
+This dashboard improves interpretability and enables quick exploratory analysis of classification outcomes.
 
-```
+🛠️ Tech Stack
+Programming Language
+Python
+Libraries Used
+pandas
+numpy
+scikit-learn
+XGBoost
+matplotlib
+seaborn
+Visualization Tools
+Power BI
+R (used inside Power BI for confusion matrix & feature importance visuals)
+Platform
+Google Colab
+Jupyter Notebook
+📁 Repository Structure
 ECG-Arrhythmia-Detection-Classification/
 │
 ├── data/
-│   ├── raw/                 # Original .data and .names files
-│   └── processed/           # Cleaned CSV with headers
+│   ├── raw/                 # Original PTB-XL dataset files
+│   └── processed/           # Cleaned CSV dataset
 │
 ├── notebooks/
 │   ├── 01_eda.ipynb
@@ -97,57 +128,46 @@ ECG-Arrhythmia-Detection-Classification/
 │   ├── 03_detection_model.ipynb
 │   └── 04_classification_model.ipynb
 │
-├── src/                     # Utility scripts (if applicable)
 ├── results/                 # Model outputs and plots
+│
+├── powerbi/
+│   └── ecg_dashboard.pbix   # Interactive visualization dashboard
+│
+├── src/                     # Utility scripts (if applicable)
+│
 ├── README.md
 └── requirements.txt
-```
+📈 Evaluation Metrics
+Binary Detection Performance
+Accuracy
+Precision
+Recall
+ROC-AUC Score
+Multi-class Classification Performance
+Accuracy
+Macro F1-score
+Weighted F1-score
+Confusion Matrix
 
----
+Special attention is given to class imbalance, which is common in ECG diagnostic datasets.
 
-## 📈 Evaluation Metrics
+👥 Collaborators
+Ridhima Joshi
+Archi Garg
+🚀 Future Work
 
-* Binary Detection:
+Potential improvements include:
 
-  * Accuracy
-  * Precision, Recall
-  * ROC-AUC
+Applying deep learning models (CNN / LSTM) on ECG waveform signals
+Implementing cost-sensitive learning for rare diagnostic classes
+Deploying as a clinical decision-support web application
+Integrating with real-time ECG acquisition pipelines
+⚠️ Disclaimer
 
-* Multi-class Classification:
+This project is intended for academic and research purposes only. It is not a certified medical diagnostic system and should not be used for clinical decision-making without professional validation.
 
-  * Accuracy
-  * Macro / Weighted F1-score
-  * Confusion Matrix
+⭐ Acknowledgements
+Springer Nature Figshare (PTB-XL dataset contributors)
+Original dataset authors: Wagner et al.
 
-Special attention is given to **class imbalance**, which is significant in this dataset.
-
----
-
-## 👥 Collaborators
-
-* **Ridhima Joshi**
-* **Archi Garg**
-
----
-
-## 🚀 Future Work
-
-* Deep learning models (CNN/LSTM) on ECG signals
-* Cost-sensitive learning for rare arrhythmia classes
-* Deployment as a clinical decision support tool
-* Integration with real-time ECG acquisition systems
-
----
-
-## ⚠️ Disclaimer
-
-This project is intended for **academic and research purposes only**. It is not a certified medical diagnostic system and should not be used for clinical decision-making without professional validation.
-
----
-
-## ⭐ Acknowledgements
-
-* UCI Machine Learning Repository
-* Original dataset contributors: H. Altay Guvenir et al.
-
-If you find this project useful, feel free to ⭐ the repository.
+If you find this project useful, consider giving it a ⭐ on GitHub.
